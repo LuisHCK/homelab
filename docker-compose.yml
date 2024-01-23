@@ -16,20 +16,13 @@ services:
         restart: unless-stopped
 
     jellyfin:
-        image: lscr.io/linuxserver/jellyfin:latest
+        image: jellyfin/jellyfin
         container_name: jellyfin
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Etc/UTC
-            - JELLYFIN_PublishedServerUrl=192.168.1.8 #optional
+        network_mode: 'host'
         volumes:
-            - /mnt/USB:/config
-            - /mnt/USB/tvseries:/data/tvshows
-            - /mnt/USB/movies:/data/movies
-        ports:
-            - 8096:8096
-            - 8920:8920 #optional
-            - 7359:7359/udp #optional
-            - 1900:1900/udp #optional
+            - ./jellyfin/config:/config
+            - /mnt/USB/cache:/cache
+            - /mnt/USB:/media/media
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         restart: unless-stopped
