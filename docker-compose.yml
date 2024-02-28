@@ -48,8 +48,11 @@ services:
 
     microbin:
         image: danielszabo99/microbin:latest
+        container_name: microbin
+        env_file:
+            - .env.microbin
         restart: always
         ports:
-            - 8080:8083
+            - 8080:8080
         volumes:
             - ./microbin-data:/app/microbin_data
