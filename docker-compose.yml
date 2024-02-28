@@ -46,3 +46,10 @@ services:
             - ./proxy-manager/data:/data
             - ./proxy-manager/letsencrypt:/etc/letsencrypt
 
+    microbin:
+        image: danielszabo99/microbin:latest
+        restart: always
+        ports:
+            - 8080:8083
+        volumes:
+            - ./microbin-data:/app/microbin_data
