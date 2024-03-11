@@ -64,12 +64,12 @@ services:
         container_name: Dashy
         # Pass in your config file below, by specifying the path on your host machine
         # volumes:
-          # - /root/my-config.yml:/app/public/conf.yml
+        # - /root/my-config.yml:/app/public/conf.yml
         ports:
-          - 4000:80
+            - 4000:80
         # Set any environmental variables
         environment:
-          - NODE_ENV=production
+            - NODE_ENV=production
         # Specify your user ID and group ID. You can find this by running `id -u` and `id -g`
         #  - UID=1000
         #  - GID=1000
@@ -77,8 +77,23 @@ services:
         restart: unless-stopped
         # Configure healthchecks
         healthcheck:
-          test: ['CMD', 'node', '/app/services/healthcheck']
-          interval: 1m30s
-          timeout: 10s
-          retries: 3
-          start_period: 40s
+            test: [ 'CMD', 'node', '/app/services/healthcheck' ]
+            interval: 1m30s
+            timeout: 10s
+            retries: 3
+            start_period: 40s
+
+    plex:
+        image: lscr.io/linuxserver/plex:latest
+        container_name: plex
+        network_mode: host
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
+            - VERSION=docker
+        volumes:
+            - ./plex:/config
+            - /mnt/USB/tvseries:/tv
+            - /mnt/USB/movies:/movies
+        restart: unless-stopped
