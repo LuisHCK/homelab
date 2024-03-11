@@ -82,18 +82,3 @@ services:
             timeout: 10s
             retries: 3
             start_period: 40s
-
-    plex:
-        image: lscr.io/linuxserver/plex:latest
-        container_name: plex
-        network_mode: host
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Etc/UTC
-            - VERSION=docker
-        volumes:
-            - ./plex:/config
-            - /mnt/USB/tvseries:/tv
-            - /mnt/USB/movies:/movies
-        restart: unless-stopped
