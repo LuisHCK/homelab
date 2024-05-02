@@ -9,6 +9,7 @@ services:
         environment:
             TZ: 'America/Managua'
             WEBPASSWORD: '%XTWodu3j5YaTvfB'
+            CORS_HOSTS: 'pihole.homelab.local'
             # Volumes store your data between container upgrades
         volumes:
             - './etc-pihole:/etc/pihole'
